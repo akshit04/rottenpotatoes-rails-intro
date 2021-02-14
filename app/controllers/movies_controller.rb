@@ -7,9 +7,10 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.with_ratings(params[:ratings])
+    @movies = Movie.with_ratings(params[:ratings], header: params[:header])
     @all_ratings = Movie.all_ratings
     @ratings_to_show = params[:ratings].present? ? @movies.map(&:rating).uniq : []
+    @color_header = params[:header]
   end
 
   def new

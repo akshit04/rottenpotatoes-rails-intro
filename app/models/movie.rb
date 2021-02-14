@@ -3,8 +3,9 @@ class Movie < ActiveRecord::Base
         self.select(:rating).map(&:rating).uniq
     end
     
-    def self.with_ratings(ratings_list)
+    def self.with_ratings(ratings_list, header: nil)
         ratings = ratings_list.present? ? ratings_list.keys : all_ratings
-        self.where(rating: ratings)
+        return self.where(rating: ratings) unless header.present?
+        return self.where(rating: ratings).order(header) if header.present?
     end
 end
