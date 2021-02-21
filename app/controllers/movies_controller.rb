@@ -7,6 +7,8 @@ class MoviesController < ApplicationController
   end
 
   def index
+    session.clear unless request.url.include? "/movies"
+    
     if params[:home] == '1'
       session[:header] = params[:header]
       session[:ratings] = params[:ratings]
